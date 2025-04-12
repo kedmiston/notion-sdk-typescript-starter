@@ -7,6 +7,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
+const limit = 10; // hardcoded
 
 app.use(express.json());
 
@@ -32,7 +33,7 @@ app.get('/databases', async (req, res) => {
 // Paginated list of databases
 app.get('/listDatabases', async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit as string) || 10;
+    // const limit = parseInt(req.query.limit as string) || 10;
     const start_cursor = req.query.start_cursor as string | undefined;
 
     console.log('Received /listDatabases request with:');
