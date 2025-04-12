@@ -30,6 +30,29 @@ app.get('/databases', async (req, res) => {
 });
 
 // Paginated list of databases
+app.get('/listDatabases', async (req, res) => {
+  try {
+    const response = await notion.search({
+      page_size: 10,
+      filter: {
+        property: 'object',
+        value: 'database',
+      },
+    });
+
+    const minimal = response.results.map((db: any) => ({
+      id: db.id,
+      title: db.title,
+      url: db.url,
+    }));
+
+    res.status(200).json({ results: minimal });
+  } catch (error) {
+    console.error('Error fetching databases:', error);
+    res.status(500).json({ error: 'Failed to fetch databases' });
+  }
+});
+
 app.get('/dbs-test', (req, res) => {
   res.send('It works!');
 });
