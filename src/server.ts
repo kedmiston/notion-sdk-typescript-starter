@@ -34,15 +34,6 @@ app.get('/listDatabases', (req, res) => {
   res.send('It works!');
 });
 
-    console.log('Successfully fetched databases:', response.results.length);
-    res.status(200).json({ message: 'listDatabases is working' });
-    //res.status(200).json(response);
-  } catch (error) {
-    console.error('Error fetching databases:', error);
-    res.status(500).json({ error: 'Failed to fetch databases' });
-  }
-});
-
 // Query a specific database
 app.post('/query', async (req, res) => {
   try {
