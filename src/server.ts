@@ -38,6 +38,10 @@ app.get('/ping', (req, res) => {
   res.json({ ok: true });
 });
 
+app.get('/test-gpt', (req, res) => {
+  res.json({ hello: 'world' });
+});
+
 // Query a specific database
 app.post('/query', async (req, res) => {
   try {
