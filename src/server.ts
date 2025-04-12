@@ -39,6 +39,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.get('/test-gpt', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
   res.send('<html><body>It works!</body></html>');
 });
 
