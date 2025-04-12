@@ -30,7 +30,7 @@ app.get('/databases', async (req, res) => {
 });
 
 // Paginated list of databases
-app.get('/listDatabases', (req, res) => {
+app.get('/dbs-test', (req, res) => {
   res.send('It works!');
 });
 
