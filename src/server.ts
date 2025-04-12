@@ -48,7 +48,18 @@ app.get('/test-gpt', (req, res) => {
 });
 
 app.get('/list-lite', async (req, res) => {
-  res.json({ ok: true });
+  const response = await notion.search({
+    page_size: 10,
+    filter: { property: 'object', value: 'database' },
+  });
+
+  const minimal = response.results.map((db: any) => ({
+    id: db.id,
+    title: db.title,
+    url: db.url,
+  }));
+
+  res.json({ results: minimal });
 });
 
 // Query a specific database
