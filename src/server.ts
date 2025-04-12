@@ -39,7 +39,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.get('/test-gpt', (req, res) => {
-  res.json({ hello: 'world' });
+  res.send('<html><body>It works!</body></html>');
 });
 
 // Query a specific database
