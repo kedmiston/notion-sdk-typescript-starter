@@ -50,15 +50,8 @@ app.get('/listDatabases', async (req, res) => {
     });
 
     console.log('Successfully fetched databases:', response.results.length);
-
-    const trimmed = response.results.map((db: any) => ({
-      id: db.id,
-      title: db.title,
-      url: db.url,
-    }));
-    res.status(200).json({ results: trimmed });
-    
-    res.status(200).json(response);
+    res.status(200).json({ message: 'listDatabases is working' });
+    //res.status(200).json(response);
   } catch (error) {
     console.error('Error fetching databases:', error);
     res.status(500).json({ error: 'Failed to fetch databases' });
