@@ -5,20 +5,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
 
+// Root check
 app.get('/', (req, res) => {
   res.send('Notion API is live!');
 });
 
-// Example endpoint to list databases
+// List all databases (basic version)
 app.get('/databases', async (req, res) => {
   try {
     const response = await notion.search({
@@ -30,7 +27,8 @@ app.get('/databases', async (req, res) => {
   }
 });
 
-app.get("/listDatabases", async (req, res) => {
+// Paginated list of databases
+app.get('/listDatabases', async (req, res) => {
   try {
     const limit = parseInt(req.query.limit as string) || 10;
     const start_cursor = req.query.start_cursor as string | undefined;
@@ -39,18 +37,19 @@ app.get("/listDatabases", async (req, res) => {
       page_size: limit,
       start_cursor,
       filter: {
-        property: "object",
-        value: "database"
-      }
+        property: 'object',
+        value: 'database',
+      },
     });
 
     res.status(200).json(response);
   } catch (error) {
-    console.error("Error fetching databases:", error);
-    res.status(500).json({ error: "Failed to fetch databases" });
+    console.error('Error fetching databases:', error);
+    res.status(500).json({ error: 'Failed to fetch databases' });
   }
 });
 
+// Query a specific database
 app.post('/query', async (req, res) => {
   try {
     const { database_id, filter } = req.body;
@@ -62,10 +61,12 @@ app.post('/query', async (req, res) => {
 
     res.status(200).json(response);
   } catch (error: any) {
+    console.error('Error querying database:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
+// Start the server using the dynamic port from Render
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
