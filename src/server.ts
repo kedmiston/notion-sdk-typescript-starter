@@ -51,6 +51,21 @@ app.get("/listDatabases", async (req, res) => {
   }
 });
 
+app.post('/query', async (req, res) => {
+  try {
+    const { database_id, filter } = req.body;
+
+    const response = await notion.databases.query({
+      database_id,
+      filter,
+    });
+
+    res.status(200).json(response);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
