@@ -31,23 +31,6 @@ app.get('/databases', async (req, res) => {
 
 // Paginated list of databases
 app.get('/listDatabases', async (req, res) => {
-  res.json({ ok: true });
-});
-
-app.get('/dbs-test', (req, res) => {
-  res.send('It works!');
-});
-
-app.get('/ping', (req, res) => {
-  res.json({ ok: true });
-});
-
-app.get('/test-gpt', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.send('<html><body>It works!</body></html>');
-});
-
-app.get('/list-lite', async (req, res) => {
   try {
     const response = await notion.search({
       page_size: 10,
