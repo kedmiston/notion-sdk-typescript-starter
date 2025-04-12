@@ -33,6 +33,10 @@ app.get('/listDatabases', async (req, res) => {
     const limit = parseInt(req.query.limit as string) || 10;
     const start_cursor = req.query.start_cursor as string | undefined;
 
+    console.log('Received /listDatabases request with:');
+    console.log('Limit:', limit);
+    console.log('Start Cursor:', start_cursor);
+
     const response = await notion.search({
       page_size: limit,
       start_cursor,
@@ -41,6 +45,8 @@ app.get('/listDatabases', async (req, res) => {
         value: 'database',
       },
     });
+
+    console.log('Successfully fetched databases:', response.results.length);
 
     res.status(200).json(response);
   } catch (error) {
