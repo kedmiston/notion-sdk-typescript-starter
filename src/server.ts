@@ -10,6 +10,8 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
 
+console.log('top of server.ts')
+
 // Root check
 app.get('/', (req, res) => {
   res.send('Notion API is live!');
