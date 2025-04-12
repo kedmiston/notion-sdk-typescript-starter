@@ -48,18 +48,23 @@ app.get('/test-gpt', (req, res) => {
 });
 
 app.get('/list-lite', async (req, res) => {
-  const response = await notion.search({
-    page_size: 10,
-    filter: { property: 'object', value: 'database' },
-  });
+  try {
+    const response = await notion.search({
+      page_size: 10,
+      filter: { property: 'object', value: 'database' },
+    });
 
-  const minimal = response.results.map((db: any) => ({
-    id: db.id,
-    title: db.title,
-    url: db.url,
-  }));
+    const results = response.results.map((db: any) => ({
+      id: db.id,
+      title: db.title,
+      url: db.url,
+    }));
 
-  res.json({ results: minimal });
+    res.json({ results });
+  } catch (error) {
+    console.error('Failed to fetch databases:', error);
+    res.status(500).json({ error: 'Could not fetch database list' });
+  }
 });
 
 // Query a specific database
