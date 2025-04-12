@@ -47,6 +47,10 @@ app.get('/test-gpt', (req, res) => {
   res.send('<html><body>It works!</body></html>');
 });
 
+app.get('/list-lite', async (req, res) => {
+  res.json({ ok: true });
+});
+
 // Query a specific database
 app.post('/query', async (req, res) => {
   try {
