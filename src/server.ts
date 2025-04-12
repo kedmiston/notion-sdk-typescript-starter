@@ -34,6 +34,10 @@ app.get('/dbs-test', (req, res) => {
   res.send('It works!');
 });
 
+app.get('/ping', (req, res) => {
+  res.json({ ok: true });
+});
+
 // Query a specific database
 app.post('/query', async (req, res) => {
   try {
