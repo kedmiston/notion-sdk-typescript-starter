@@ -2,6 +2,7 @@ import express from 'express';
 import { Client } from '@notionhq/client';
 import dotenv from 'dotenv';
 import notionCommand from './routes/notionCommand';
+import createDatabase from './routes/createDatabase';
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
 app.use(notionCommand);
+app.use('/', createDatabase);
 
 console.log('top of server.ts')
 
