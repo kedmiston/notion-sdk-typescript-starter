@@ -9,7 +9,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://notion-sdk-typescript-starter.onrender.com/openapi.yaml"
+    "url": "https://notion-sdk-typescript-starter.onrender.com/.well-known/ai-plugin.json"
   },
   "logo_url": "https://notion-sdk-typescript-starter.onrender.com/logo.png",
   "contact_email": "kedmist@gmail.com",
