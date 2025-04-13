@@ -7,6 +7,10 @@ const router = express.Router();
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const databaseId = process.env.NOTION_LEADERSHIP_DB_ID;
+if (!databaseId) {
+  throw new Error('NOTION_LEADERSHIP_DB_ID is not set in environment');
+}
+
 
 router.post('/api/notion/log-leadership-task', async (req, res) => {
   const { category, title, notes } = req.body;
