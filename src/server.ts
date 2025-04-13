@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import notionCommand from './routes/notionCommand';
 import createDatabase from './routes/createDatabase';
 import logLeadershipTask from './routes/logLeadershipTask';
-import path from 'path';
 
 dotenv.config();
 
@@ -13,54 +12,27 @@ const PORT = process.env.PORT || 3000;
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
-app.use(notionCommand);
+app.use('/', notionCommand);
 app.use('/', createDatabase);
 app.use('/', logLeadershipTask);
-
-// Plugin manifest
-app.get('/.well-known/ai-plugin.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.sendFile(path.join(__dirname, '..', 'public', 'ai-plugin.json'));
-});
-
-// OpenAPI spec
-app.get('/openapi.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.sendFile(path.join(__dirname, '..', 'public', 'openapi.json'));
-});
-
-// Serve all static files from public/ 
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Root check
 app.get('/', (req, res) => {
   res.send('Notion API is live!');
 });
 
-// List all databases (basic version)
-app.get('/databases', async (req, res) => {
-  try {
-    const response = await notion.search({
-      filter: { property: 'object', value: 'database' },
-    });
-    res.json(response.results);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Paginated list of databases
+// List all Notion databases this integration can access
 app.get('/listDatabases', async (req, res) => {
   try {
     const response = await notion.search({
       page_size: 10,
-      filter: { property: 'object', value: 'database' },
+      filter: { property: 'object', value: 'database' }
     });
 
     const results = response.results.map((db: any) => ({
       id: db.id,
-      title: db.title,
-      url: db.url,
+      title: db?.title?.[0]?.plain_text || 'Untitled',
+      url: db.url
     }));
 
     res.json({ results });
@@ -77,7 +49,7 @@ app.post('/query', async (req, res) => {
 
     const response = await notion.databases.query({
       database_id,
-      filter,
+      filter
     });
 
     res.status(200).json(response);
@@ -87,7 +59,7 @@ app.post('/query', async (req, res) => {
   }
 });
 
-// Start the server using the dynamic port from Render
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
