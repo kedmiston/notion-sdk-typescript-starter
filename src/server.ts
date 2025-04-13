@@ -16,8 +16,12 @@ app.use(notionCommand);
 app.use('/', createDatabase);
 
 // Serve the plugin manifest explicitly first
-app.use('/.well-known/ai-plugin.json', express.static(path.join(__dirname, 'public/ai-plugin.json')));
-app.use('/openapi.json', express.static(path.join(__dirname, 'public/openapi.json')));
+app.get('/.well-known/ai-plugin.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'ai-plugin.json'));
+});
+app.get('/openapi.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'openapi.json'));
+});
 
 
 // Serve all static files from public/ (including openapi.yaml)
