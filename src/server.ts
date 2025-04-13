@@ -1,6 +1,7 @@
 import express from 'express';
 import { Client } from '@notionhq/client';
 import dotenv from 'dotenv';
+import notionCommand from './routes/notionCommand';
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
+app.use(notionCommand);
 
 console.log('top of server.ts')
 
