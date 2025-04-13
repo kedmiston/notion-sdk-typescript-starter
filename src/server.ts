@@ -3,6 +3,7 @@ import { Client } from '@notionhq/client';
 import dotenv from 'dotenv';
 import notionCommand from './routes/notionCommand';
 import createDatabase from './routes/createDatabase';
+import logLeadershipTask from './routes/logLeadershipTask';
 import path from 'path';
 
 dotenv.config();
@@ -14,6 +15,7 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 app.use(express.json());
 app.use(notionCommand);
 app.use('/', createDatabase);
+app.use('/', logLeadershipTask);
 
 // Plugin manifest
 app.get('/.well-known/ai-plugin.json', (req, res) => {
