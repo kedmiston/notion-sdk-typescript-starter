@@ -17,6 +17,8 @@ app.use('/', createDatabase);
 
 // Serve the plugin manifest explicitly first
 app.use('/.well-known/ai-plugin.json', express.static(path.join(__dirname, 'public/ai-plugin.json')));
+app.use('/openapi.json', express.static(path.join(__dirname, 'public/openapi.json')));
+
 
 // Serve all static files from public/ (including openapi.yaml)
 app.use(express.static(path.join(__dirname, 'public')));
