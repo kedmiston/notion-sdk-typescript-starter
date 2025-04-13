@@ -12,6 +12,7 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 app.use(express.json());
 app.use(notionCommand);
+app.use('/.well-known/ai-plugin.json', express.static('public/ai-plugin.json'));
 app.use('/', createDatabase);
 
 console.log('top of server.ts')
