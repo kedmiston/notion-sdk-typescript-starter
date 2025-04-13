@@ -15,16 +15,17 @@ app.use(express.json());
 app.use(notionCommand);
 app.use('/', createDatabase);
 
-// Serve the plugin manifest explicitly first
+// Plugin manifest
 app.get('/.well-known/ai-plugin.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'ai-plugin.json'));
 });
+
+// OpenAPI spec
 app.get('/openapi.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'openapi.json'));
 });
 
-
-// Serve all static files from public/ (including openapi.yaml)
+// Serve all static files from public/ 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Root check
