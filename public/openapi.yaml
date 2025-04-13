@@ -2,6 +2,9 @@ openapi: 3.0.1
 info:
   title: Notion Assistant API
   version: '1.0'
+servers:
+  - url: https://notion-sdk-typescript-starter.onrender.com
+
 paths:
   /api/notion/create-database:
     post:
