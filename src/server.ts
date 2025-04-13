@@ -17,11 +17,13 @@ app.use('/', createDatabase);
 
 // Plugin manifest
 app.get('/.well-known/ai-plugin.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.sendFile(path.join(__dirname, '..', 'public', 'ai-plugin.json'));
 });
 
 // OpenAPI spec
 app.get('/openapi.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.sendFile(path.join(__dirname, '..', 'public', 'openapi.json'));
 });
 
