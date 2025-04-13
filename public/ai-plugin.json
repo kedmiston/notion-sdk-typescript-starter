@@ -8,8 +8,8 @@
     "type": "none"
   },
   "api": {
-    "type": "openapi",
-    "url": "https://notion-sdk-typescript-starter.onrender.com/openapi.json?v=2"
+  "type": "openapi",
+  "url": "https://notion-sdk-typescript-starter.onrender.com/openapi.json"
   },
   "logo_url": "https://notion-sdk-typescript-starter.onrender.com/logo.png",
   "contact_email": "kedmist@gmail.com",
