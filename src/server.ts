@@ -4,16 +4,12 @@ import dotenv from 'dotenv';
 import notionCommand from './routes/notionCommand';
 import createDatabase from './routes/createDatabase';
 import path from 'path';
-import mime from 'mime';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
-
-// Register .yaml as text/yaml (must come before static middleware)
-mime.define({ 'text/yaml': ['yaml'] });
 
 app.use(express.json());
 app.use(notionCommand);
